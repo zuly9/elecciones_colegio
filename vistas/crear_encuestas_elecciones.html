@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+      <meta charset="UTF-8">
+      <title>Crear Encuesta de Elecciones</title>
+      <link rel="stylesheet" href="../estilos/estilos_crear_encuesta_elecciones.css">
+      <script src="../js/header_sesion.js"></script>
+</head>
+<body>
+
+    <div class="contenedor"><header>
+
+        <!--Header dinamico-->
+        <header class="encabezado-principal"></header>
+
+        <main>
+              <h2>Creacion de Encuesta de Elecciones 2025</h2>
+
+              <!-- Datos generales de la encuesta-->
+               <form id="formEncuesta" enctype="multipart/form-data">
+                <section class="datos-encuesta">
+                    <h3>Datos Generales</h3>
+                    <div class="form-group">
+                        <label for="titulo">Titulo de la Encuesta</label>
+                        <input type="text" id="titulo" name="titulo" placeholder="Ej: Elecciones personero 2025" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripcion</label>
+                        <textarea id="descripcion" name="descripcion" rows="3" placeholder="Breve Despripcion de la Encuesta" required></textarea>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fecha de inicio">Fecha de inicio</label>
+                            <input type="date" id="fecha_inicio" name="fecha_inicio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha_fin">Fecha de fin</label>
+                            <input type="date" id="fecha_fin" name="fecha_fin" required>
+                        </div> 
+                    </div>
+                </section>
+
+                <!--Candidatos-->
+                <section class="candidatos">
+                    <h3>Registrar Candidatos</h3>
+                    <p>Puedes registrar hasta <strong>20 candidatos</strong></p>
+
+                    <div id="candidatosContainer"></div>
+
+                    <div style="text-align: center; margin-top: 20px;">
+                      <button type="button" id="btnAgregar">   Agregar candidato</button>
+                    </div>
+                </section>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button type="submit">  Crear Encuesta</button>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 - Colegio Ejemplo. Todos los derechos reservados.</p>
+    </footer>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById("candidatosContainer");
+        const btnAgregar = document.getElementById("btnAgregar");
+        let contador = 0;
+        const maxCandidatos = 20;
+
+        btnAgregar.addEventListener("click", () => {
+            if (contador >= maxCandidatos) {
+                alert("Solo puedes registrar hasta 20 candidatos.");
+                return;
+            }  
+
+            contador++;
+
+            const candidatoDiv = document.createElement("div");
+            candidatoDiv.classList.add("candidato");
+
+
+
+            candidatoDiv.innerHTML =
+    '<div class="candidato-header">' +
+        '<h4>Candidato ' + contador + '</h4>' +
+        '<button type="button" class="btnEliminar" title="Eliminar candidato">  </button>' +
+    '</div>' +
+    '<div class="form-grid">' +
+        '<div class="form-group">' +
+            '<label for=doc_' + contador + '">Documento</label>' +
+            '<input type="text" id="doc_' + contador + '"name="doc_' + contador + '"required>' +
+        '</div>' +
+        '<div class="form-group">' +
+            '<label for=nombre_' + contador + '">Nombre completo</label>' +
+            '<input type="text" id="nombre_' + contador + '"name="nombre_' + contador + '"required>' +
+        '</div>' +
+        '<div class="form-group">' +
+            '<label for=grado_' + contador + '">Grado</label>' +
+            '<input type="text" id="grado_' + contador + '"name="grado_' + contador + '"required>' +
+        '</div>' +
+        '<div class="form-group">' +
+            '<label for=grupo_' + contador + '">Grupo</label>' +
+            '<input type="text" id="grupo_' + contador + '"name="grupo_' + contador + '"required>' +
+        '</div>' +
+        '<div class="form-group">' +
+            '<label for=foto_' + contador + '">Foto</label>' +
+            '<input type="file" id="foto_' + contador + '"name="foto_' + contador + 'accept="image/*" required>' +
+        '</div>' +
+    '</div>';
+
+
+            //Evento para eliminar candidato
+            candidatoDiv.querySelector(".btnEliminar").addEventListener("click". () => {
+               candidatoDiv.remove();
+               contador--;
+          })
+
+          container.appendChild(candidatoDiv);
+        });
+    }); 
+</script>
+
+</body>
+</html>
+
